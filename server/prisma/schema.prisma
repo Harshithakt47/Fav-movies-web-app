@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model MovieShow {
+  id        Int     @id @default(autoincrement())
+  title     String  @db.VarChar(255)
+  type      String  // "Movie" or "TV Show"
+  director  String  @db.VarChar(255)
+  budget    String? @db.VarChar(100)
+  location  String? @db.VarChar(255)
+  duration  String? @db.VarChar(100)
+  yearTime  String? @db.VarChar(100) @map("year_time")
+  posterUrl String? @db.VarChar(500) @map("poster_url")
+  description String? @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("movies_shows")
+}
